@@ -2,106 +2,25 @@
 
 ## Project Spec
 
-### <u>Project Overview</u>
-This project is a **full‑stack web application** designed to help restaurants manage customer orders and track the ingredients required to fulfill them. The application will be built entirely from scratch without front‑end frameworks, using **vanilla HTML, CSS, and JavaScript** for the client side, and **AWS services** (API Gateway, Lambda, DynamoDB) for the backend.  
+The app will be designed to help waiters, chefs, and kitchen managers keep track of orders in a simple, organized way without relying on paper notes. The general theme is improving restaurant workflow management using a lightweight web application that can streamline communication between the front of house and the kitchen.
 
-The goal is to demonstrate mastery of core web development concepts: building a responsive front‑end, connecting to a cloud‑based backend, handling CRUD operations, sanitizing user input, and ensuring accessibility. By the end, the app will provide a practical tool for chefs and restaurant staff to streamline order management and ingredient tracking.
+The application will consist of three distinct pages, each serving a clear purpose. The first page is the Order Page, which will be used by waiters to enter customer orders. The form will include fields for table numbers, dish name, quantity, and timestamp (automated so no user input). When submitted, the data will be sent to AWS through API Gateway and processed by a Lambda function, which will then store the order in DynamoDB. This page is critical because it represents the “create” functionality in the CRUD cycle, and it ensures that orders are captured digitally and reliably. Waiters will no longer need to rely on handwritten notes, and the kitchen will receive accurate information in real time.
 
-### <u>Theme</u>
-The theme is **restaurant order management**. Unlike customer‑facing apps (like Uber Eats), this project focuses on the **chef’s perspective**: receiving orders, breaking them down into required ingredients, and ensuring the kitchen has the right quantities on hand.  
+The second page is the Dashboard Page, which acts as the chef’s control panel. This page will allow chefs and managers to retrieve all orders from the database and display them in a table format. Each row will show the order id, table number, dish, quantity, and timestamp, along with action buttons to delete an order or view its ingredients. The dashboard will also include conditional retrieval features, such as filtering orders by dish type, table number, or date. For example, a chef could filter to see only pizza orders for the night, or a manager could check which tables are still waiting for food. The delete functionality ensures that mistakes or canceled orders can be removed quickly, keeping the system clean and accurate.
 
-This theme is chosen because it naturally involves multiple pages, forms, conditional data retrieval, and dynamic displays — all aligning perfectly with the project grading rubric.
+The third page is the Ingredient Page, which provides a breakdown of the ingredients needed for a specific order. When a chef clicks “View Ingredients” on the dashboard, they will be taken to this page, which will display a list of items required to prepare the dish. For example, if the order is for two burgers, the ingredient page will show two buns, two patties, two slices of cheese, and two lettuce leaves (very generalized example). This page represents the “read” functionality in a more focused way, since it retrieves data for a single order rather than the entire database. It also demonstrates conditional retrieval, as the page only shows the ingredients tied to the selected order. By giving cooks a clear list of what they need, the ingredient page helps streamline kitchen operations and reduces errors.
 
+I am also considering adding a fourth Home Page that would provide useful analytical insights for the restaurant staff. This page could display information such as which tables are currently occupied or available, which dishes are being ordered most frequently, and the rate at which new orders are coming in.
 
-### <u>Core Functionality</u>
-At its core, the app will support the following features:
+The target audience for this project is restaurant staff, specifically waiters, chefs, and kitchen managers. Waiters will use the order page to submit customer requests, while chefs and cooks will rely on the dashboard and ingredient page to manage and prepare food. The data being managed will include table numbers, dish names, quantities, timestamps, and the ingredients tied to each dish. The website will not be customer facing.
 
-- **Landing Page (index.html):**
-  - Welcomes users with a simple introduction.
-  - Provides navigation to other pages.
-  - Includes a form for submitting a new order (customer name, dish, quantity).
+Stretch goals for the project could include adding an analytics dashboard that shows trends such as the most popular dishes or busiest times, or generating a shopping list of ingredients needed for the day. Another possible extension would be an inventory page that tracks what ingredients are currently in stock, allowing chefs to compare available supplies against incoming orders. Accessibility and testing will also be priorities.
 
-- **Order Submission Page:**
-  - A dedicated form page for entering new orders.
-  - Data is sent to AWS via API Gateway → Lambda → DynamoDB.
-  - Input sanitization ensures safe handling of customer names and dish details.
-
-- **Order Dashboard Page:**
-  - Displays all current orders in a dynamic table.
-  - Includes a “Retrieve All Orders” button.
-  - Allows deletion of orders via a “Delete” button next to each entry.
-  - Conditional retrieval: filter orders by dish type, date, or customer.
-
-- **Ingredient Tracker Page:**
-  - Aggregates all orders to calculate total ingredient requirements.
-  - Displays a list of ingredients and quantities needed for the day.
-  - Helps chefs plan shopping and prep.
-
-
-### <u>Target Audience</u>
-The primary audience is **restaurant staff** — chefs, kitchen managers, and possibly front‑of‑house staff who need visibility into orders.  
-
-Secondary audiences could include:
-- **Students learning web development** (as a demo project).
-- **Small catering businesses** who need lightweight order tracking without complex POS systems.
-
-
-### <u>Data Model</u>
-The app will manage dynamic data generated by user input:
-
-- **Orders:**
-  - Customer name
-  - Dish name
-  - Quantity
-  - Timestamp
-
-- **Ingredients:**
-  - Derived from dish definitions (e.g., “Pizza” requires flour, cheese, tomato sauce).
-  - Aggregated totals across all orders.
-
-This data will be stored in **AWS DynamoDB**, with Lambda functions handling CRUD operations.
-
-
-### <u>Technical Stack</u>
-- **Frontend:**
-  - HTML: Semantic structure for accessibility.
-  - CSS: Custom styles (minimum 21+ for A grade).
-  - JavaScript: Fetch API calls to AWS endpoints, dynamic DOM updates, input sanitization, unit tests.
-
-- **Backend (AWS):**
-  - API Gateway: Exposes REST endpoints.
-  - Lambda: Handles business logic (create, read, delete orders).
-  - DynamoDB: Stores order and ingredient data.
-
-
-### <u>Meeting Grading Requirements</u>
-- **C‑ Level:** Landing page, form submission, retrieve all orders, delete orders, basic CSS.  
-- **B‑ Level:** Three distinct pages (landing, order form, dashboard), conditional retrieval, more CSS styles.  
-- **B Level:** Custom CSS per page, authored tests for JS functions (e.g., sanitization, filtering).  
-- **A‑ Level:** Input sanitization, 80%+ JS test coverage, four distinct pages (landing, order form, dashboard, ingredient tracker).  
-- **A Level:** Accessibility compliance (perfect Lighthouse score), 21+ CSS styles, polished UI.  
-
-
-### <u>Stretch Goals</u>
-Once the core requirements are met, here's some additional features I might add for fun:  
-- **Analytics Dashboard:** Charts showing most popular dishes, busiest times, ingredient usage trends.  
-- **Shopping List Export:** Generate a downloadable list of ingredients needed for the day.  
-
-
-### <u>Accessibility & Testing</u>
-Accessibility will be a priority:
-- Semantic HTML (proper headings, labels, alt text).  
-- High‑contrast color schemes.  
-- Keyboard navigation support.  
-
-Testing will include:
-- Unit tests for JavaScript functions (sanitization, filtering, DOM updates).  
-- Coverage reports to ensure 80%+ coverage.  
-- Manual Lighthouse checks for accessibility.
+In terms of scope and timeline, the project will begin with setting up the GitHub repository and writing the README to describe the plan. The next step will be building the order page and connecting it to AWS, followed by implementing the dashboard with retrieval and deletion functionality. After that, the ingredient page will be added to handle conditional retrieval. Once the core functionality is complete, I will focus on styling each page with CSS, writing tests for JavaScript functions, improving accessibility, and updating other high-level features if needed.
 
 
 ## Project Wireframe
 
-TODO: Replace the wireframe below with you own design.
+![wireframe](wireframe-orderpage.png)
 
-![wireframe](wireframe-example.png)
+![wireframe](wireframe-dashboard.png)
