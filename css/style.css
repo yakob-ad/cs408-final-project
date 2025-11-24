@@ -1,4 +1,88 @@
-h1{
-  border-color: #d3e644;
-  border-style: dashed;
+/* General body */
+body { 
+  font-family: 'Arial', sans-serif; 
+  margin: 2rem; 
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Header */
+header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+/* Navigation bar */
+nav {
+  display: flex;
+  justify-content: space-around; 
+  align-items: center;           
+  background-color: #fff;       
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd; 
+}
+
+nav a {
+  flex: 1;                       
+  text-align: center;     
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem;
+}
+
+nav a.active {
+  font-weight: bold;
+  color: #fff;
+  background-color: #D4A373;
+  border-radius: 4px;
+}
+
+
+/* Form styling */
+form { 
+  max-width: 400px; 
+  margin: 2rem auto; 
+  padding: 1.5rem; 
+  background-color: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+label { 
+  display: block; 
+  margin-top: 1rem; 
+  font-weight: bold;
+}
+
+select, input, button { 
+  width: 100%;
+  padding: 0.5rem; 
+  margin-top: 0.5rem; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Button styling */
+button {
+  background-color: #D4A373;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Message area */
+#message {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
 }
