@@ -86,3 +86,43 @@ button:hover {
   font-weight: bold;
   text-align: center;
 }
+
+/* Dashboard Table */
+#orderTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#orderTable th, #orderTable td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#orderTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  position: relative; /* allows sort button positioning */
+}
+
+#orderTable tr:hover {
+  background-color: #f9f1e7; /* subtle highlight on hover */
+}
+
+#orderTable td button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+#orderTable th {
+  cursor: pointer;
+}
+
+#orderTable th:hover {
+  background-color: #e6e6e6;
+}

@@ -8,13 +8,15 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
     // Collect form values
     const tableNumber = document.getElementById("tableNumber").value;
     const dishName = document.getElementById("dishName").value;
+    const dishType = document.getElementById("dishType").value;
     const quantity = document.getElementById("quantity").value;
 
     //Build order object
     const order = {
-        orderId: "" + Date.now(), // Unique order ID
-        tableNumber: tableNumber,
+        orderId: "order-" + Date.now(), // Unique order ID
+        tableNumber: parseInt(tableNumber, 10),
         dishName: dishName,
+        dishType: dishType,
         quantity: parseInt(quantity, 10),
         timestamp: new Date().toISOString()
     };

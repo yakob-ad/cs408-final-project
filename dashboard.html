@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Restaurant Order System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Yakob's Restaurant Order System</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="index.html">Order</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="ingredients.html">Ingredients</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="controls">
+      <h2>Current Orders</h2>
+      <button id="retrieveOrdersBtn">Retrieve All Orders</button>
+
+      <!-- Filter dropdown -->
+      <div class="filter-container">
+        <label for="filterSelect">Filter Options:</label>
+        <select id="filterSelect">
+          <option value="">-- Select Filter --</option>
+          <option value="table2">Table #2</option>
+          <option value="table3">Table #3</option>
+          <option value="pizza">Dish Type: Pizza</option>
+          <option value="burger">Dish Type: Burger</option>
+          <!-- More filters can be added dynamically -->
+        </select>
+        <button id="applyFilterBtn">Apply Filter</button>
+      </div>
+    </section>
+
+    <div id="message"></div>
+
+    <!-- Orders table -->
+    <table id="orderTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0, 'string')">Order ID</th>
+          <th onclick="sortTable(1, 'number')">Table</th>
+          <th onclick="sortTable(2, 'string')">Dish</th>
+          <th onclick="sortTable(3, 'string')">Type</th>
+          <th onclick="sortTable(4, 'number')">Quantity</th>
+          <th onclick="sortTable(5, 'date')">Timestamp</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Orders will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </main>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
