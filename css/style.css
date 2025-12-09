@@ -41,8 +41,8 @@ nav a.active {
 }
 
 
-/* Form styling */
-form { 
+/* Order Form Styling */
+#orderForm { 
   max-width: 400px; 
   margin: 2rem auto; 
   padding: 1.5rem; 
@@ -58,8 +58,11 @@ label {
   font-weight: bold;
 }
 
-select, input, button { 
+input, button {
   width: 100%;
+}
+
+select, input, button { 
   padding: 0.5rem; 
   margin-top: 0.5rem; 
   border: 1px solid #ccc;
@@ -76,6 +79,16 @@ button {
   margin-top: 1.5rem;
 }
 
+button.delete {
+  background-color: #e74c3c; /* red */
+  color: white;
+}
+
+button.finish {
+  background-color: #2ecc71; /* green */
+  color: white;
+}
+
 button:hover {
   background-color: #005fa3;
 }
@@ -87,8 +100,9 @@ button:hover {
   text-align: center;
 }
 
-/* Dashboard Table */
-#orderTable {
+/* Dashboard Table and Ingredients Table*/
+#orderTable, 
+#ingredientsTable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
@@ -96,13 +110,15 @@ button:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-#orderTable th, #orderTable td {
+#orderTable th, #orderTable td,
+#ingredientsTable th, #ingredientsTable td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-#orderTable th {
+#orderTable th,
+#ingredientsTable th {
   background-color: #f2f2f2;
   font-weight: bold;
   position: relative; /* allows sort button positioning */
@@ -113,16 +129,66 @@ button:hover {
 }
 
 #orderTable td button {
-  margin-right: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
+  width: 100%;            /* each button fills most of the cell width */
+  padding: 0.75rem 1rem;  /* bigger click area, taller buttons */
+  font-size: 1rem;        /* readable text size */
+  margin: 0.4rem 0;       /* vertical spacing between buttons */
+  border-radius: 6px;     /* rounded corners for clarity (set to 0 for square) */
 }
 
-#orderTable th {
+#orderTable th,
+#ingredientsTable th {
   cursor: pointer;
 }
 
-#orderTable th:hover {
+#orderTable th:hover,
+#ingredientsTable th:hover {
   background-color: #e6e6e6;
 }
+
+/* Select Styling */
+.filter-container {
+  display: flex;
+  flex-direction: row;   /* side by side */
+  align-items: center;
+  gap: 1rem;             /* spacing between them */
+  margin-bottom: 1rem;   /* space before the button */
+}
+
+#applyFilterBtn {
+  display: block;        /* ensures it sits on its own line */
+  margin-top: 0.5rem;
+}
+
+/* Ingredients Container Styling */
+.add-ingredient,
+.update-ingredient {
+  display: flex;
+  align-items: center;
+  gap: 15px;               /* spacing between elements */
+  margin-bottom: 25px;
+  margin-left: 30px;
+}
+
+.add-ingredient label,
+.update-ingredient label {
+  white-space: nowrap;     /* prevents label wrapping */
+}
+
+.add-ingredient input,
+.update-ingredient input,
+.add-ingredient select,
+.update-ingredient select {
+  width: 20rem;            /* keeps inputs aligned */
+}
+
+.add-ingredient button,
+.update-ingredient button {
+  width: 100px;            /* limit button width */
+  padding: 6px 10px;
+  margin: 10px 10px 5px;
+  flex-shrink: 0;          /* prevents buttons from stretching */
+}
+
+
+

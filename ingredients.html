@@ -19,35 +19,68 @@
   </header>
 
   <main>
-    <section class="ingredients-list">
-      <h2>Ingredients Inventory</h2>
+  <section class="controls">
+    <h2>Ingredients Inventory</h2>
+    <button id="retrieveIngredientsBtn">Retrieve All Ingredients</button>
+    <!-- <button id="addIngredientBtn">Add Ingredient</button> -->
 
-      <!-- Temporary table (to be changed later) -->
-      <table id="ingredientsTable">
-        <thead>
-          <tr>
-            <th>Ingredient</th>
-            <th>Quantity</th>
-            <th>Unit</th>
-            <th>Last Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Tomatoes</td>
-            <td>50</td>
-            <td>pcs</td>
-            <td>Dec 7, 2025</td>
-          </tr>
-          <tr>
-            <td>Cheese</td>
-            <td>10</td>
-            <td>kg</td>
-            <td>Dec 7, 2025</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+    <!-- Add New Ingredient -->
+    <h3>Add Ingredient ⤵</h3>
+    <form id="addIngredientForm" class="add-ingredient">
+      <label for="ingredientNameInput">Name:</label>
+      <input type="text" id="ingredientNameInput" placeholder="Ingredient name" required>
+
+      <label for="ingredientQuantityInput">Quantity:</label>
+      <input type="number" id="ingredientQuantityInput" placeholder="Quantity" step="any" required>
+
+      <label for="ingredientUnitSelect">Unit:</label>
+      <select id="ingredientUnitSelect" required>
+        <option value="kg">kg</option>
+        <option value="liters">liters</option>
+        <option value="pieces">pieces</option>
+      </select>
+
+      <button type="submit">Add Ingredient</button>
+    </form>
+
+    <!-- Update Selected Ingredient -->
+    <h3>Update Ingredient Quantity ⤵</h3>
+    <form id="updateIngredientForm" class="update-ingredient">
+      <label for="ingredientSelect">Ingredient:</label>
+      <select id="ingredientSelect" required>
+        <!-- options injected dynamically -->
+      </select>
+
+      <label for="ingredientAdjustInput">Amount:</label>
+      <input type="number" id="ingredientAdjustInput" placeholder="Amount" step="any" required>
+
+      <button type="submit" id="increaseBtn" value="increase">+</button>
+      <button type="submit" id="decreaseBtn" value="decrease">-</button>
+    </form>
+
+  </section>
+
+  <div id="message"></div>
+
+  <!-- Ingredients table -->
+  <table id="ingredientsTable">
+    <thead>
+      <tr>
+        <th onclick="sortIngredients(0, 'string')">Ingredient ID</th>
+        <th onclick="sortIngredients(1, 'string')">Name</th>
+        <th onclick="sortIngredients(2, 'number')">Quantity</th>
+        <th onclick="sortIngredients(3, 'string')">Unit</th>
+        <th onclick="sortIngredients(4, 'date')">Last Updated</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Ingredients will be dynamically inserted here -->
+    </tbody>
+  </table>
+</main>
+<script src="js/ingredients.js"></script>
+
+    
 </body>
 </html>

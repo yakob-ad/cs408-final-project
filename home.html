@@ -21,11 +21,73 @@
   <main>
     <section class="intro">
       <h2>HOME PAGE</h2>
+      <h3>Add Recipe</h3>
+      <form id="addRecipeForm">
+        <!-- <label>Recipe ID: <input type="text" id="recipeIdInput" required></label><br> -->
+        <label for="dishName">Dish Name:</label>
+        <input type="text" id="dishName" name="dishName" 
+              placeholder="e.g. Caesar Salad" required>
+
+        <label for="dishType">Dish Type:</label>
+        <input type="text" id="dishType" name="dishType" 
+              placeholder="e.g. Side" required>
+
+        <label for="ingredients">Ingredients (comma-separated IDs): </label>
+        <input type="text" id="ingredients" name="ingredients" 
+              placeholder="e.g. ing-lettuce, ing-cheese, ing-crouton, ing-olive-oil" required>
+
+        <label for="amounts">Amounts (comma-separated numbers): </label>
+        <input type="text" id="amounts" name="amounts" 
+              placeholder="e.g. 100, 50, 30, 10" required>
+
+        <label for="units">Units (comma-separated units): </label>
+        <input type="text" id="units" name="units" 
+              placeholder="e.g. gram, gram, gram, ml" required>
+        
+        <button type="submit">Submit Recipe</button>
+      </form>
+      <p id="recipeMessage"></p>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Yakob's Restaurant</p>
   </footer>
+
+  <script>
+
+    function generateRecipeId(dishName) {
+      return "rec-" + dishName.trim().toLowerCase().replace(/\s+/g, "-");
+    }
+
+    const BASE_URL = "https://7yxsn0k61g.execute-api.us-east-2.amazonaws.com/";
+
+    document.getElementById("addRecipeForm").onsubmit = function(e) {
+      e.preventDefault();
+
+      const recipe = {
+        // recipeId: document.getElementById("recipeIdInput").value.trim(),
+        recipeId: generateRecipeId(document.getElementById("dishNameInput").value.trim()),
+        dishName: document.getElementById("dishNameInput").value.trim(),
+        dishType: document.getElementById("dishTypeInput").value.trim(),
+        ingredients: document.getElementById("ingredientsInput").value.split(",").map(s => s.trim()),
+        amounts: document.getElementById("amountsInput").value.split(",").map(Number),
+        units: document.getElementById("unitsInput").value.split(",").map(s => s.trim())
+      };
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("PUT", BASE_URL + "/recipes");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("recipeMessage").innerText = "Recipe added successfully!";
+          e.target.reset();
+        } else {
+          document.getElementById("recipeMessage").innerText = "Failed to add recipe: " + xhr.status;
+        }
+      };
+      xhr.send(JSON.stringify(recipe));
+    };
+  </script>
 </body>
 </html>
