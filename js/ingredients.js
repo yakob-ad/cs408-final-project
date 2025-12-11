@@ -1,17 +1,27 @@
 // BASE URL for API Gateway
 const BASE_URL = "https://7yxsn0k61g.execute-api.us-east-2.amazonaws.com/";
 
-function showMessage(text) {
+// -------------------- MESSAGE DISPLAY --------------------
+// Helper: show status/info messages in <p id="message">
+function showMessage(text, color = "black") {
   const msg = document.getElementById("message");
   msg.innerText = text;
+  msg.style.color = color;
+
+  // Clear this message after 5 seconds
+  setTimeout(() => {
+    msg.innerText = "";
+  }, 5000);
 }
 
+// -------------------- ID GENERATION --------------------
 // Generate a stable ingredient ID from the name
 function generateIngredientId(name) {
   return "ing-" + name.trim().toLowerCase().replace(/\s+/g, "-");
 }
 
 // -------------------- LOAD ALL INGREDIENTS --------------------
+// Retrieve all ingredients from backend and populate table + dropdown
 document.getElementById("retrieveIngredientsBtn").onclick = function () {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", BASE_URL + "/ingredients"); // GET all ingredients
@@ -21,7 +31,7 @@ document.getElementById("retrieveIngredientsBtn").onclick = function () {
       populateIngredientsTable(ingredients); // render into table
       populateIngredientDropdown(ingredients); // update ingredients dropdown
     } else {
-      showMessage("Failed to load ingredients: " + xhr.status);
+      showMessage("Failed to load ingredients: " + xhr.status, "red");
     }
   };
   xhr.send();
@@ -47,18 +57,18 @@ document.getElementById("addIngredientForm").onsubmit = function (e) {
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = function () {
     if (xhr.status === 200) {
-      showMessage("Ingredient added successfully!");
+      showMessage("Ingredient \"" + newIngredient.name + "\" added successfully!", "green");
       e.target.reset(); // clears the form
       document.getElementById("retrieveIngredientsBtn").click();
     } else {
-      showMessage("Failed to add ingredient: " + xhr.status);
+      showMessage("Failed to add ingredient: " + xhr.status, "red");
     }
   };
   xhr.send(JSON.stringify(newIngredient));
 };
 
-
-
+// -------------------- POPULATE INGREDIENTS TABLE --------------------
+// Render ingredient list into table rows with delete buttons
 function populateIngredientsTable(items) {
   const tbody = document.querySelector("#ingredientsTable tbody");
   tbody.innerHTML = "";
@@ -88,29 +98,30 @@ function populateIngredientsTable(items) {
     deleteBtn.innerText = "Delete";
     deleteBtn.classList.add("delete");
     deleteBtn.onclick = function () {
-      deleteIngredient(item.ingredientId, row);
+      deleteIngredient(item, row);
     };
     deleteCell.appendChild(deleteBtn);
   });
 }
 
 // -------------------- DELETE INGREDIENT --------------------
-function deleteIngredient(ingredientId, row) {
+// Delete ingredient from backend and update table + dropdown
+function deleteIngredient(ingredient, row) {
   let xhr = new XMLHttpRequest();
-  xhr.open("DELETE", BASE_URL + "/ingredients/" + encodeURIComponent(ingredientId));
+  xhr.open("DELETE", BASE_URL + "/ingredients/" + encodeURIComponent(ingredient.ingredientId));
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = function () {
     if (xhr.status === 200) {
       row.remove(); // remove row from DOM
-      showMessage("Ingredient " + ingredientId + " deleted successfully.");
+      showMessage("Ingredient \"" + ingredient.name + "\" deleted successfully.", "green");
       
       // Remove from cache
-      cachedIngredients = cachedIngredients.filter(i => i.ingredientId !== ingredientId);
+      cachedIngredients = cachedIngredients.filter(i => i.ingredientId !== ingredient.ingredientId);
 
       // Refresh dropdown
       populateIngredientDropdown(cachedIngredients);
     } else {
-      showMessage("Failed to delete ingredient: " + xhr.status);
+      showMessage("Failed to delete ingredient: " + xhr.status, "red");
     }
   };
   xhr.send();
@@ -174,21 +185,8 @@ function refreshIngredients() {
   xhr.send();
 }
 
-
 // -------------------- POPULATE UNITS DROPDOWN --------------------
-
-// Base units for data storage / API
-const UNITS = ["kg", "liter", "piece", "gram", "ml", "pack"];
-
-// Optional plural forms for display
-const UNITS_PLURAL = ["kgs", "liters", "pieces", "grams", "ml", "packs"];
-
-// Plural form of Unit name
-function getPlural(unit) {
-  const idx = UNITS.indexOf(unit);
-  return idx !== -1 ? UNITS_PLURAL[idx] : unit;
-}
-
+// Populate unit select dropdown with available units
 function populateUnitDropdown() {
   const unitSelect = document.getElementById("ingredientUnitSelect");
   unitSelect.innerHTML = ""; // clear existing options
@@ -204,7 +202,8 @@ function populateUnitDropdown() {
 // Keep a cached list for update lookups
 let cachedIngredients = [];
 
-// Call this after retrieving ingredients
+// -------------------- INGREDIENT DROPDOWN --------------------
+// Populate ingredient select dropdown for update form
 function populateIngredientDropdown(items) {
   cachedIngredients = items; // store for later use in update form
 
@@ -220,7 +219,8 @@ function populateIngredientDropdown(items) {
 }
 
 
-// Update form listener
+// -------------------- UPDATE INGREDIENT --------------------
+// Update ingredient quantity (increase/decrease) with validation
 document.getElementById("updateIngredientForm").onsubmit = function (e) {
   e.preventDefault();
 
@@ -228,7 +228,7 @@ document.getElementById("updateIngredientForm").onsubmit = function (e) {
   const amount = Number(document.getElementById("ingredientAdjustInput").value);
 
   if (!ingredientId || !amount) {
-    showMessage("Please select an ingredient and enter an amount.");
+    showMessage("Please select an ingredient and enter an amount.", "blue");
     return;
   }
 
@@ -239,14 +239,14 @@ document.getElementById("updateIngredientForm").onsubmit = function (e) {
   // Find ingredient in cache
   const ingredient = cachedIngredients.find(i => i.ingredientId === ingredientId);
   if (!ingredient) {
-    showMessage("Ingredient not found.");
+    showMessage("Ingredient not found.", "red");
     return;
   }
 
   // Prevent negative quantities
   const newQuantity = ingredient.quantity + delta;
   if (newQuantity < 0) {
-    showMessage("Quantity cannot go below zero.");
+    showMessage("Quantity cannot go below zero.", "red");
     return;
   }
 
@@ -265,11 +265,11 @@ document.getElementById("updateIngredientForm").onsubmit = function (e) {
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = function () {
     if (xhr.status === 200) {
-      showMessage("Ingredient updated successfully!");
+      showMessage("Ingredient \"" + updatedIngredient.name + "\" updated successfully!", "green");
       e.target.reset(); // clear form
       document.getElementById("retrieveIngredientsBtn").click(); // refresh table + dropdown
     } else {
-      showMessage("Failed to update ingredient: " + xhr.status);
+      showMessage("Failed to update ingredient: " + xhr.status, "red");
     }
   };
   xhr.send(JSON.stringify(updatedIngredient));
@@ -281,11 +281,10 @@ setInterval(() => {
   refreshIngredients();
 }, 15000);
 
-// Call once when page loads
+// -------------------- INITIALIZATION --------------------
+// Populate unit dropdown and auto-load ingredients on page load
 window.onload = function () {
   populateUnitDropdown();
   document.getElementById("retrieveIngredientsBtn").click(); // Auto-load ingredients
 };
-
-
 
