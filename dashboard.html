@@ -10,10 +10,10 @@
 <body>
   <header>
     <h1>Yakob's Restaurant Order System</h1>
-    <nav>
+    <nav aria-label="Main navigation">
       <a href="home.html">Home</a>
       <a href="index.html">Order</a>
-      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="dashboard.html" class="active" aria-current="page">Dashboard</a>
       <a href="ingredients.html">Ingredients</a>
     </nav>
   </header>
@@ -49,19 +49,19 @@
 
     </section>
 
-    <p id="message"></p>
+    <p id="message" role="status" aria-live="polite"></p>
 
     <!-- Orders table -->
     <table id="orderTable">
       <thead>
         <tr>
-          <th onclick="sortTable(0, 'string')">Order ID</th>
-          <th onclick="sortTable(1, 'number')">Table</th>
-          <th onclick="sortTable(2, 'string')">Dish</th>
-          <th onclick="sortTable(3, 'string')">Type</th>
-          <th onclick="sortTable(4, 'number')">Quantity</th>
-          <th onclick="sortTable(5, 'date')">Timestamp</th>
-          <th>Actions</th>
+          <th scope="col" onclick="sortTable(0, 'string')">Order ID</th>
+          <th scope="col" onclick="sortTable(1, 'number')">Table</th>
+          <th scope="col" onclick="sortTable(2, 'string')">Dish</th>
+          <th scope="col" onclick="sortTable(3, 'string')">Type</th>
+          <th scope="col" onclick="sortTable(4, 'number')">Quantity</th>
+          <th scope="col" onclick="sortTable(5, 'date')">Timestamp</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>

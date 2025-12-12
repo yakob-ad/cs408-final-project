@@ -37,6 +37,8 @@ document.getElementById("retrieveIngredientsBtn").onclick = function () {
   xhr.send();
 };
 
+// -------------------- ADD INGREDIENT --------------------
+// Handle submission of the "Add Ingredient" form.
 document.getElementById("addIngredientForm").onsubmit = function (e) {
   e.preventDefault(); // prevent page reload
 

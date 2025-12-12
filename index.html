@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -12,16 +12,16 @@
 <body>
   <header>
     <h1>Yakob's Restaurant Order System</h1>
-    <nav>
+    <nav aria-label="Main navigation">
       <a href="home.html">Home</a>
-      <a href="index.html" class="active">Order</a>
+      <a href="index.html" class="active" aria-current="page">Order</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="ingredients.html">Ingredients</a>
     </nav>
   </header>
 
   <main>
-    <p id="message"></p>
+    <p id="message" role="status" aria-live="polite"></p>
     <form id="orderForm">
       <h2>Add New Order</h2>
       <label for="tableNumber">Table Number:</label>
@@ -37,8 +37,8 @@
         <option value="8">#8</option>
       </select>
 
-      <label for="dishName">Dish Name:</label>
-      <select id="dishNameSelect">
+      <label for="dishNameSelect">Dish Name:</label>
+      <select id="dishNameSelect" name="dishName" required>
         <!-- Add Options in JavaScript -->
       </select>
 

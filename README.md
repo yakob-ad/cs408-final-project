@@ -24,3 +24,35 @@ In terms of scope and timeline, the project will begin with setting up the GitHu
 ![wireframe](wireframe-orderpage.png)
 
 ![wireframe](wireframe-dashboard.png)
+
+
+## Project Overview
+
+The application is now fully operational and provides three core pages plus a Home page:  
+
+- **Order Page** – Waiters enter customer orders with table number, dish, quantity, and automated timestamp. Orders are sent through AWS API Gateway and stored in DynamoDB.  
+- **Dashboard Page** – Chefs and managers can view all orders in a table, filter by dish type or table, delete orders, or mark an order as finished once it has been cooked. Finishing an order automatically updates ingredient inventory.  
+- **Ingredient Page** – Shows the exact ingredients required for each order, helping cooks prepare dishes accurately and reducing errors.  
+- **Home Page** – Instead of analytics, this page now allows staff to add new recipes with their ingredients, amounts, and units. New dishes become immediately available for ordering and inventory tracking.  
+
+The system captures orders digitally, keeps the kitchen updated in real time, and ensures inventory is adjusted as dishes are completed. Future extensions like analytics or a dedicated inventory dashboard remain possible, but the current implementation covers the essential workflow. 
+
+## Development
+
+It is recommended to use the VSCode Live Server extension to run the project
+locally. This will allow you to see changes in real-time as you make them. There is no need to run a build process or refresh the page manually. Additionally,
+you do not need to setup a local server to run the project.
+
+## Running
+
+To run the site using Live Preview in VS Code, press `Ctrl+Shift+P` to open the 
+Command Palette, then select `Live Preview: Start Server`. You can copy the URL 
+from the VS Code Live Preview and paste it into a web browser such as Chrome to 
+view the site externally.
+
+To end Live Preview, open Command Palette and select `Live Preview: Stop Server`.
+
+## Sources and Credits
+
+- W3Schools (CSS): https://www.w3schools.com/css/
+- MDN Learning Web Development: https://developer.mozilla.org/en-US/docs/Learn_web_development

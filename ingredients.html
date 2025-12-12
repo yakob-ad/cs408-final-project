@@ -10,11 +10,11 @@
 <body>
   <header>
     <h1>Yakob's Restaurant Order System</h1>
-    <nav>
+    <nav aria-label="Main navigation">
       <a href="home.html">Home</a>
       <a href="index.html">Order</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="ingredients.html" class="active">Ingredients</a>
+      <a href="ingredients.html" class="active" aria-current="page">Ingredients</a>
     </nav>
   </header>
 
@@ -60,18 +60,18 @@
 
   </section>
 
-  <p id="message"></p>
+  <p id="message" role="status" aria-live="polite"></p>
 
   <!-- Ingredients table -->
   <table id="ingredientsTable">
     <thead>
       <tr>
-        <th onclick="sortIngredients(0, 'string')">Ingredient ID</th>
-        <th onclick="sortIngredients(1, 'string')">Name</th>
-        <th onclick="sortIngredients(2, 'number')">Quantity</th>
-        <th onclick="sortIngredients(3, 'string')">Unit</th>
-        <th onclick="sortIngredients(4, 'date')">Last Updated</th>
-        <th>Delete</th>
+        <th scope="col" onclick="sortIngredients(0, 'string')">Ingredient ID</th>
+        <th scope="col" onclick="sortIngredients(1, 'string')">Name</th>
+        <th scope="col" onclick="sortIngredients(2, 'number')">Quantity</th>
+        <th scope="col" onclick="sortIngredients(3, 'string')">Unit</th>
+        <th scope="col" onclick="sortIngredients(4, 'date')">Last Updated</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
